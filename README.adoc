@@ -1,0 +1,21 @@
+= README
+
+This project contains an uploader dedicated to GraphDB.
+
+With this you could:
+
+* upload all files into a directory into the default graphDb repository
+* upload recusively a directory into the default graphDB repository
+
+
+== Usage
+
+=== Options
+
+* --url URL: _required_, contains GraphDb http url without endpoint
+* --dir DIR: _required_, define local directory containing data files
+
+=== Exec example:
+
+ ./main.py --url http://localhost:7200 --dir /home/luc/Documents/datas/externals/showroom
+
