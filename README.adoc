@@ -14,6 +14,8 @@ With this you could:
 
 * --url URL: _required_, contains GraphDb http url without endpoint
 * --dir DIR: _required_, define local directory containing data files
+* --tmp TMPDIR: if present, program split and copy all DIR files TMPDIR, load them and remove TMPDIR at the end
+  (without error)
 
 === Exec example:
 
