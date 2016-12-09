@@ -12,7 +12,7 @@ from file.file import File
 from uploader.upload import Uploader
 
 
-def main(url, pathname, tmpdir):
+def main(url, repository, pathname, tmpdir):
     if tmpdir and os.path.exists(tmpdir):
         logging.error('TMP dir %s exists, but may not', tmpdir)
         raise Exception('TMP dir %s exists, but may not', tmpdir)
@@ -28,15 +28,14 @@ def main(url, pathname, tmpdir):
             File.split(file, tmpdir)
         files = dir.scan(tmpdir)
 
-    uploader = Uploader(url)
+    uploader = Uploader(url, repository)
     for file in files:
         logging.info('File: %s', file)
         response = uploader.upload(file)
-        time.sleep(15)
         if 299 < response.status_code:
             logging.error('Request Error: %s', response.text)
         else:
-            logging.info(response.text)
+            logging.info('OK ' + response.text)
     uploader.upload_dashboard()
     if tmpdir:
         logging.info('Remove %s and contents', tmpdir)
@@ -47,7 +46,8 @@ if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
     parser = argparse.ArgumentParser()
     parser.add_argument('--url', dest='url', help='Repository endpoint', required=True)
+    parser.add_argument('--repo', dest='repo', help='Repository', required=True)
     parser.add_argument('--dir', dest='directory', help='Directory contains data files', required=True)
     parser.add_argument('--tmp', dest='tmpdir', help='Temporary Directory contains small datas files, do not exist')
     args = parser.parse_args()
-    main(args.url, args.directory, args.tmpdir)
+    main(args.url, args.repo, args.directory, args.tmpdir)

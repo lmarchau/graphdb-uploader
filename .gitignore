@@ -1,3 +1,7 @@
 *.pyc
 .idea
 datas
+tmp
+results
+*.txt
+*.sh
